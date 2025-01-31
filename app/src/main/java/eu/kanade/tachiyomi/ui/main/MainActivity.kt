@@ -54,6 +54,7 @@ import androidx.core.util.Consumer
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.lifecycle.lifecycleScope
+import aniyomix.source.model.Hoster
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
@@ -551,7 +552,9 @@ class MainActivity : BaseActivity() {
             episodeId: Long,
             extPlayer: Boolean,
             video: Video? = null,
-            videoList: List<Video>? = null,
+            hosterIndex: Int = -1,
+            videoIndex: Int = -1,
+            hosterList: List<Hoster>? = null,
         ) {
             if (extPlayer) {
                 val intent = try {
@@ -564,7 +567,14 @@ class MainActivity : BaseActivity() {
                 externalPlayerResult?.launch(intent) ?: return
             } else {
                 context.startActivity(
-                    PlayerActivity.newIntent(context, animeId, episodeId, videoList, videoList?.indexOf(video)),
+                    PlayerActivity.newIntent(
+                        context,
+                        animeId,
+                        episodeId,
+                        hosterList,
+                        hosterIndex,
+                        videoIndex,
+                    ),
                 )
             }
         }
